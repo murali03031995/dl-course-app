@@ -4,9 +4,8 @@ import { faPlus, faArrowsRotate, faPen, faTrash, faBook, faUser, faKey, faDollar
 import "./Form.css";
 import { newCourse } from "../../Services/FormService";
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
-export default function Form() {
+export default function Form({ onCourseAdded }) {
   const [formData, setFormData] = useState({
     courseId: "",
     courseName: "",
@@ -21,9 +20,15 @@ export default function Form() {
 
   const postData = async () => {
     try {
-      const result = await newCourse(formData);
+      await newCourse(formData);
       toast.success('Course created successfully!');
-      console.log(result);
+      setFormData({
+        courseId: "",
+        courseName: "",
+        trainerName: "",
+        price: ""
+      });
+      onCourseAdded(); // Notify the parent component to reload courses
     } catch (error) {
       toast.error('Failed to create course. Please try again.');
       console.log(error);
@@ -95,20 +100,17 @@ export default function Form() {
             </div>
           </div>
           <div className="row pt-1 justify-content-center">
-            <div className="col-sm-3">
+            <div className="col-sm-2">
               <div className="row mb-3">
                 <div className="col d-flex justify-content-between">
                   <button onClick={postData} className="btn btn-primary">
                     <FontAwesomeIcon icon={faPlus} />
                   </button>
-                  <button className="btn btn-success">
+                  <button className="btn btn-success" onClick={onCourseAdded}>
                     <FontAwesomeIcon icon={faArrowsRotate} />
                   </button>
                   <button className="btn btn-warning">
                     <FontAwesomeIcon icon={faPen} />
-                  </button>
-                  <button className="btn btn-danger">
-                    <FontAwesomeIcon icon={faTrash} />
                   </button>
                 </div>
               </div>
