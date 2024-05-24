@@ -1,17 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faArrowsRotate, faPen, faTrash, faBook, faUser, faKey, faDollar } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faArrowsRotate, faPen, faBook, faUser, faKey, faDollar } from "@fortawesome/free-solid-svg-icons";
 import "./Form.css";
 import { newCourse } from "../../Services/FormService";
+import { updateCourse } from "../../Services/UpdateService";
 import { toast } from 'react-toastify';
 
-export default function Form({ onCourseAdded }) {
+export default function Form({ editingCourse, onCourseAdded }) {
   const [formData, setFormData] = useState({
     courseId: "",
     courseName: "",
     trainerName: "",
     price: ""
   });
+
+  useEffect(() => {
+    if (editingCourse) {
+      setFormData(editingCourse);
+    }
+  }, [editingCourse]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -20,8 +27,13 @@ export default function Form({ onCourseAdded }) {
 
   const postData = async () => {
     try {
-      await newCourse(formData);
-      toast.success('Course created successfully!');
+      if (editingCourse) {
+        await updateCourse(formData);
+        toast.success(`${formData.courseName} updated successfully!`);
+      } else {
+        await newCourse(formData);
+        toast.success('Course created successfully!');
+      }
       setFormData({
         courseId: "",
         courseName: "",
@@ -30,7 +42,7 @@ export default function Form({ onCourseAdded }) {
       });
       onCourseAdded(); // Notify the parent component to reload courses
     } catch (error) {
-      toast.error('Failed to create course. Please try again.');
+      toast.error('Failed to save course. Please try again.');
       console.log(error);
     }
   };
@@ -109,7 +121,7 @@ export default function Form({ onCourseAdded }) {
                   <button className="btn btn-success" onClick={onCourseAdded}>
                     <FontAwesomeIcon icon={faArrowsRotate} />
                   </button>
-                  <button className="btn btn-warning">
+                  <button className="btn btn-warning" onClick={postData}>
                     <FontAwesomeIcon icon={faPen} />
                   </button>
                 </div>

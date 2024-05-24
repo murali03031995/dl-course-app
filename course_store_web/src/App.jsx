@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState, useEffect } from "react";
 import './App.css';
 import Header from './Components/Header/Header';
@@ -11,6 +10,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [courses, setCourses] = useState([]);
+  const [editingCourse, setEditingCourse] = useState(null);
 
   const loadCourses = async () => {
     try {
@@ -25,12 +25,16 @@ function App() {
     loadCourses();
   }, []);
 
+  const handleEditCourse = (course) => {
+    setEditingCourse(course);
+  };
+
   return (
     <div>
       <ToastContainer />
       <Header />
-      <Form onCourseAdded={loadCourses} />
-      <CourseDetails courses={courses} onDeleteCourse={loadCourses} />
+      <Form editingCourse={editingCourse} onCourseAdded={loadCourses} />
+      <CourseDetails courses={courses} onDeleteCourse={loadCourses} onEditCourse={handleEditCourse} />
     </div>
   );
 }
