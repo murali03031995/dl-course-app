@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173/")
+@CrossOrigin(origins = "*")
 public class FormController {
 
     @Autowired
     FormRepo formRepo;
 
+    @GetMapping("/api")
+    public String api() {
+        return "Successfully connected to Backend!";
+    }
     @GetMapping("/allCourses")
     public List<Form> getAllCourses() {
         return formRepo.findAll();

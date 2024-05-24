@@ -24,10 +24,9 @@
 - 
 ### Frontend Setup 
 #### frontend folder: course_store
-- **course_store/src/Services/FormService.jsx**
-  - In **Line-8**: insted of **localhost** give backend **pub-ip**
-- **course_store/src/Components/CourseDetails/CourseDetails.jsx**
-  - In **Line-13** insted of **localhost** give backend **pub-ip**
+- **course_store/src/Services/BaseURL.jsx**
+  - In **Line-2**: insted of **localhost** give backend **pub-ip**
+
 - Install **Node-20** version
 - build tool is **npm**
 - Output folder **dist**
