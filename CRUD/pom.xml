@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.react</groupId>
-	<artifactId>CRUD</artifactId>
+	<artifactId>CourseStore_API</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>CRUD</name>
 	<description>CRUD for react app </description>
