@@ -1,8 +1,7 @@
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y openjdk-17-jdk maven
+FROM openjdk:17
 WORKDIR /app
 COPY . .
-RUN mvn clean package -DskipTests
+RUN ./mvnw clean package -DskipTests
 EXPOSE 8080
 CMD ["java", "-jar", "target/CRUD-0.0.1-SNAPSHOT.jar"]
 
