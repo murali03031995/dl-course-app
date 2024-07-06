@@ -29,12 +29,12 @@
 ## Backend Setup
 ### backend folder: CRUD
 - Update your database details in this file
-  - course_store_api/src/main/resources/**application.properties**
+  - backend/src/main/resources/**application.properties**
 ### Install java: 
 - sudo apt install openjdk-17* -y
 - Java --version
 ### build backend:
-- Change to backend directory: cd course_store_api/
+- Change to backend directory: cd backend/
 - ./mvnw clean package
 - you will get target folder
 - For manually running the application:
@@ -49,7 +49,7 @@
 Description=Your Spring Boot Application
 [Service]
 User=ubuntu
-ExecStart=/usr/bin/java -jar /home/ubuntu/dl-course-app/course_store_api//target/CRUD-0.0.1-SNAPSHOT.jar
+ExecStart=/usr/bin/java -jar /home/ubuntu/dl-course-app/backend/target/CRUD-0.0.1-SNAPSHOT.jar
 SuccessExitStatus=143
 [Install]
 WantedBy=multi-user.target
@@ -61,8 +61,8 @@ WantedBy=multi-user.target
  
 ## Frontend Setup 
 ### frontend folder: course_store
-- **course_store_web/src/Services/BaseURL.jsx**
-  - In **Line-2**: insted of **localhost** give backend **pub-ip**
+- **frontend/src/Services/BaseURL.jsx**
+  - In **Line-1**: insted of **localhost** give backend **pub-ip**
 
 ### Install Node-20
 ```
@@ -71,6 +71,7 @@ sudo -E bash nodesource_setup.sh
 sudo apt-get install -y nodejs
 node -v
 ```
+- cd frontend/
 - build tool is **npm**:
   - npm install
   - npm run build
